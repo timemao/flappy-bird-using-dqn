@@ -1,0 +1,40 @@
+DL程序学习：flappybird实现
+2017/7/8
+tf.placeholder  : 设置未定义大小的变量，留空位符
+
+2017/7/9
+x=Image.open("images/preprocess.png","r")
+Image._show(x)
+x=np.asarray(x)  # image format to numpy array
+x1=Image.fromarray(cv2.resize(x,(80,80))) # numpy array to image format
+
+python 中的axis： 0--竖着连接
+                  1--横着连接
+				  
+pycharm 停靠模式（docked）：当选择了Windows模式或者floating模式，docked和finned
+        全部不可选，要恢复docked模式，需要将window和floating模式全部取消
+		
+2017/7/10
+一、游戏实现部分
+1.base地面移动设置问题：
+# 切忌直接抄写程序，不理解抄了也没用
+# 实现时，要先基本实现其功能，然后在考虑改进
+本来想用两块base实现，但是考虑到base宽大于screen宽，所以直接使用base即可
+
+2.创建pipes
+（1）精灵的创建初始化
+class Pipe(Sprite):
+    def __init__(self,screen,ai_settings):
+        super(Pipe,self).__init__()
+(2)精灵更新是成组更新
+pipes.update(ai_settings)
+（3）blitme不能再用，可以使用draw，需要image属性，需要rect属性
+直接在create_pipes里面创建未能成功，分了个create_pipe函数才成功
+
+tip： 矩阵旋转问题：
+base=Image.open('sprites/pipe-green.png','r')
+base1=base.rotate(180)
+
+tip：随机数：random.randrange(80,160)产生80到160之间的随机（整数）
+tip：
+（4）更新不同步问题：将上下都用if判断是否要回传（循环）
